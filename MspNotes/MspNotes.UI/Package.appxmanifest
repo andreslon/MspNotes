@@ -7,11 +7,11 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="b5ac39ec-99a1-4842-9a6c-92ca85e0b62d"
+    Name="7b7d9563-d608-421e-a39e-26c502de6d73"
     Publisher="CN=andre"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="b5ac39ec-99a1-4842-9a6c-92ca85e0b62d" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="7b7d9563-d608-421e-a39e-26c502de6d73" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>MspNotes.UI</DisplayName>
