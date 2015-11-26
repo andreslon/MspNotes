@@ -11,12 +11,15 @@
         <ListView ItemsSource="{Binding Notes}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal" >
+                    <StackPanel   >
                         <TextBlock  Text="{Binding Id}"  />
                         <TextBlock  Text="{Binding Title}" />
                         <TextBlock  Text="{Binding Description}" />
-                        <Button  Content="Update" Command="{Binding UpdateNoteCommand}"/>
-                        <Button  Content="Delete" Command="{Binding DeleteNoteCommand}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button  Content="Update" Command="{Binding UpdateNoteCommand}"/>
+                            <Button  Content="Delete" Command="{Binding DeleteNoteCommand}"/>
+                        </StackPanel>
+                      
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

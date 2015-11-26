@@ -15,16 +15,22 @@ namespace MspNotes.UI.ViewModels
     public class MainViewModel : NotifyPropertyChanged
     {
         //Fields
-        public ObservableCollection<NoteViewModel> Notes { get; set; }
+
+        private ObservableCollection<NoteViewModel> notes;
+        public ObservableCollection<NoteViewModel> Notes
+        {
+            get { return notes; }
+            set { if (Set(ref notes, value)) { OnPropertyChanged("Notes"); } }
+        }
+
+
         public NoteViewModel SelectedNote { get; set; }
         public OneDriveService onedrive { get; set; }
 
         public MainViewModel()
         {
-            onedrive = new OneDriveService();
             SelectedNote = new NoteViewModel();
-            LoadNotes();
-        }
+         }
 
         async public void LoadNotes()
         {

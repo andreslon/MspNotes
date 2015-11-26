@@ -10,7 +10,6 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ScrollViewer Style="{StaticResource PageScrollViewerStyle}">
             <StackPanel>
-                <Button Content="Guardar" Name="btnlogin" Click="btnlogin_Click"></Button>
                 
                 <TextBlock Text="Welcome" Style="{StaticResource TitleTextBlockStyle}" />
                 <TextBlock Style="{StaticResource ParagraphTextBlockStyle}">

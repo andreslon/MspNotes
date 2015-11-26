@@ -21,11 +21,19 @@ namespace MspNotes.UI.Services
         }
         async private void Initialize()
         {
+            //SID de paquete:
+            //ms - app://s-1-15-2-781564687-2288085987-2730961153-1334342004-1546344497-2975729527-1374251682
+            //Id.de cliente:
+            //000000004C171FA2
+            //Clave secreta de cliente:
+            //SV4vHrYrnIm2JilfntRk3mUTPiPkun9d
+
             try
             {
                 if (oneDriveClient == null)
                 {
                     oneDriveClient = OneDriveClientExtensions.GetClientUsingOnlineIdAuthenticator(scopes);
+                    //oneDriveClient = OneDriveClientExtensions.GetClientUsingWebAuthenticationBroker("000000004C171FA2", scopes);
                     await oneDriveClient.AuthenticateAsync();
                 }
             }
@@ -37,27 +45,31 @@ namespace MspNotes.UI.Services
         async public Task<List<Note>> GetAllNotes()
         {
             var lst = new List<Note>();
-
-            var lstItems = await oneDriveClient
-                             .Drive
-                             .Special
-                             .AppRoot
-                             .Children
-                             .Request()
-                             .GetAsync();
-
-            foreach (var item in lstItems)
+            try
             {
-                var contentStream = await oneDriveClient
-                            .Drive
-                            .Items[item.Id]
-                            .Content
-                            .Request()
-                            .GetAsync();
+                var lstItems = await oneDriveClient
+                                 .Drive
+                                 .Special
+                                 .AppRoot
+                                 .Children
+                                 .Request()
+                                 .GetAsync();
 
-                lst.Add(new Serializer().DeserializeObject<Note>(contentStream));
+                foreach (var item in lstItems)
+                {
+                    var contentStream = await oneDriveClient
+                                .Drive
+                                .Items[item.Id]
+                                .Content
+                                .Request()
+                                .GetAsync();
+
+                    lst.Add(new Serializer().DeserializeObject<Note>(contentStream));
+                }
             }
-
+            catch (Exception)
+            {
+            }
             return lst;
         }
 
@@ -75,7 +87,7 @@ namespace MspNotes.UI.Services
             return new Serializer().DeserializeObject<Note>(contentStream);
         }
 
-        async public void DeleteNote(string noteId)
+        async public Task DeleteNote(string noteId)
         {
             await oneDriveClient
                                 .Drive
@@ -86,7 +98,7 @@ namespace MspNotes.UI.Services
                                 .DeleteAsync();
         }
 
-        async public void UpdateNote(Note note)
+        async public Task UpdateNote(Note note)
         {
             byte[] byteArray = Encoding.UTF8.GetBytes(new Serializer().SerializeObject(note));
             MemoryStream stream = new MemoryStream(byteArray);
@@ -111,7 +123,7 @@ namespace MspNotes.UI.Services
                     .UpdateAsync(item);
         }
 
-        async public void SaveNote(Note note)
+        async public Task SaveNote(Note note)
         {
             byte[] byteArray = Encoding.UTF8.GetBytes(new Serializer().SerializeObject(note));
             MemoryStream stream = new MemoryStream(byteArray);

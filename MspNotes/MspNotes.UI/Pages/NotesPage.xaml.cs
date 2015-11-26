@@ -25,6 +25,7 @@ namespace MspNotes.UI.Pages
         public NotesPage()
         {
             this.InitializeComponent();
+            App.MainViewModel.LoadNotes();
             this.DataContext = App.MainViewModel;
         }
     }

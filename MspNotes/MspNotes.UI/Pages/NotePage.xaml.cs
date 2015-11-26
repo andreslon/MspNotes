@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MspNotes.UI.Services;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,9 +26,9 @@ namespace MspNotes.UI.Pages
         public NotePage()
         {
             this.InitializeComponent();
+           
             this.DataContext = App.MainViewModel.SelectedNote;
         }
-
-
+        
     }
 }

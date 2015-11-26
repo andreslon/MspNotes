@@ -9,16 +9,13 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-        <StackPanel>
-            <TextBlock  Text="{Binding Id}" />
-            <TextBlock Text="Title" />
-            <TextBox   Text="{Binding Title}"  />
-            <TextBlock Text="Description" />
-            <TextBox  Text="{Binding Description}"  />
-
-            <StackPanel Orientation="Horizontal">
-                <Button  Content="Save" Command="{Binding SaveNoteCommand}"/>
-            </StackPanel>
+        <StackPanel Margin="20">
+            <TextBlock Margin="5"  Text="{Binding Id}"  />
+            <TextBlock Margin="5" Text="Title" />
+            <TextBox   Margin="5" Text="{Binding Title,Mode=TwoWay}"  />
+            <TextBlock Margin="5" Text="Description" />
+            <TextBox   Margin="5"  Text="{Binding Description,Mode=TwoWay}"  />
+            <Button Margin="5" Content="Save" Command="{Binding SaveNoteCommand}"/>
         </StackPanel>
 
     </Grid>

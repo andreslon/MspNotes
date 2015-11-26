@@ -3,6 +3,7 @@ using System.Linq;
 using Windows.UI.Xaml.Controls;
 using MspNotes.UI.Pages;
 using MspNotes.UI.Presentation;
+using MspNotes.UI.Services;
 
 namespace MspNotes.UI
 {
@@ -24,6 +25,10 @@ namespace MspNotes.UI
             vm.SelectedMenuItem = vm.MenuItems.First();
 
             this.ViewModel = vm;
+
+            this.Loaded += (s, e) => {
+                App.MainViewModel.onedrive = new OneDriveService();
+            };
         }
 
         public ShellViewModel ViewModel { get; private set; }

@@ -44,11 +44,11 @@ namespace MspNotes.UI.ViewModels
             DeleteNoteCommand = new Command(DeleteNote);
         }
 
-        private void SaveNote()
+        async private void SaveNote()
         {
             if (string.IsNullOrWhiteSpace(this.Id))
             {
-                App.MainViewModel.onedrive.SaveNote(new Model.Note
+                await App.MainViewModel.onedrive.SaveNote(new Model.Note
                 {
                     Id = Guid.NewGuid().ToString(),
                     Description = this.Description,
@@ -57,7 +57,7 @@ namespace MspNotes.UI.ViewModels
             }
             else
             {
-                App.MainViewModel.onedrive.UpdateNote(new Model.Note
+                await App.MainViewModel.onedrive.UpdateNote(new Model.Note
                 {
                     Id = this.Id,
                     Description = this.Description,
@@ -66,9 +66,9 @@ namespace MspNotes.UI.ViewModels
             }
             NavigateToNotes();
         }
-        private void DeleteNote()
+        async private void DeleteNote()
         {
-            App.MainViewModel.onedrive.DeleteNote(this.Id);
+            await App.MainViewModel.onedrive.DeleteNote(this.Id);
             App.MainViewModel.LoadNotes();
         }
 
@@ -76,14 +76,14 @@ namespace MspNotes.UI.ViewModels
         {
             App.MainViewModel.SelectedNote = this;
             var frame = (Shell)Windows.UI.Xaml.Window.Current.Content;
-            frame.ViewModel.SelectedMenuItem = new MenuItem { Icon = "", Title = "Agregar Nota", PageType = typeof(NotePage) }; ;
-        } 
+            frame.ViewModel.SelectedMenuItem = frame.ViewModel.MenuItems.Where(x => x.PageType == typeof(NotePage)).FirstOrDefault();
+        }
 
         public void NavigateToNotes()
         {
             App.MainViewModel.LoadNotes();
             var frame = (Shell)Windows.UI.Xaml.Window.Current.Content;
-            frame.ViewModel.SelectedMenuItem = new MenuItem { Icon = "", Title = "Listar Notas", PageType = typeof(NotesPage) };
+            frame.ViewModel.SelectedMenuItem = frame.ViewModel.MenuItems.Where(x => x.PageType == typeof(NotesPage)).FirstOrDefault();
         }
     }
 }

@@ -21,7 +21,6 @@ namespace MspNotes.UI
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             MainViewModel = new MainViewModel();
-
         }
 
 
