@@ -10,6 +10,8 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ScrollViewer Style="{StaticResource PageScrollViewerStyle}">
             <StackPanel>
+                <Button Content="Guardar" Name="btnlogin" Click="btnlogin_Click"></Button>
+                
                 <TextBlock Text="Welcome" Style="{StaticResource TitleTextBlockStyle}" />
                 <TextBlock Style="{StaticResource ParagraphTextBlockStyle}">
                     <Run Text="Thank you for installing the Intense templates. This is a Univeral Windows project template for multi-page apps. Among others this project uses the following concepts and patterns;" />
