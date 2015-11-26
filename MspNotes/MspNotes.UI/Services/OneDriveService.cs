@@ -10,7 +10,7 @@ using MspNotes.UI.Model;
 
 namespace MspNotes.UI.Services
 {
-    class OneDriveService
+    public class OneDriveService
     {
         public IOneDriveClient oneDriveClient { get; set; }
         public readonly string[] scopes = new string[] { "onedrive.readwrite", "wl.offline_access", "wl.signin" };
@@ -54,7 +54,7 @@ namespace MspNotes.UI.Services
                             .Content
                             .Request()
                             .GetAsync();
-                 
+
                 lst.Add(new Serializer().DeserializeObject<Note>(contentStream));
             }
 
@@ -74,6 +74,7 @@ namespace MspNotes.UI.Services
 
             return new Serializer().DeserializeObject<Note>(contentStream);
         }
+
         async public void DeleteNote(string noteId)
         {
             await oneDriveClient
@@ -84,6 +85,7 @@ namespace MspNotes.UI.Services
                                 .Request()
                                 .DeleteAsync();
         }
+
         async public void UpdateNote(Note note)
         {
             byte[] byteArray = Encoding.UTF8.GetBytes(new Serializer().SerializeObject(note));

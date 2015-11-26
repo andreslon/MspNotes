@@ -7,21 +7,21 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 
+using MspNotes.UI.Services;
+using MspNotes.UI.ViewModels;
+
 namespace MspNotes.UI
 {
-    /// <summary>
-    /// Provides application-specific behavior to supplement the default Application class.
-    /// </summary>
     sealed partial class App : Application
     {
-        /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
-        /// </summary>
+        public static MainViewModel MainViewModel { get; set; }
+
         public App()
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            MainViewModel = new MainViewModel();
+
         }
 
 
@@ -35,7 +35,8 @@ namespace MspNotes.UI
         {
 
 #if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached) {
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
                 // disabled, obscures the hamburger button, enable if you need it
                 //this.DebugSettings.EnableFrameRateCounter = true;
             }
@@ -45,7 +46,8 @@ namespace MspNotes.UI
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
-            if (shell == null) {
+            if (shell == null)
+            {
                 // Create a Shell which navigates to the first page
                 shell = new Shell();
 
@@ -53,7 +55,8 @@ namespace MspNotes.UI
                 shell.RootFrame.NavigationFailed += OnNavigationFailed;
                 shell.RootFrame.Navigated += OnNavigated;
 
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated) {
+                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                {
                     //TODO: Load state from previously suspended application
                 }
 
@@ -63,7 +66,8 @@ namespace MspNotes.UI
                 // listen for back button clicks (both soft- and hardware)
                 SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
 
-                if (ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons")) {
+                if (ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
+                {
                     HardwareButtons.BackPressed += OnBackPressed;
                 }
 
@@ -78,7 +82,8 @@ namespace MspNotes.UI
         void OnBackPressed(object sender, BackPressedEventArgs e)
         {
             var shell = (Shell)Window.Current.Content;
-            if (shell.RootFrame.CanGoBack) {
+            if (shell.RootFrame.CanGoBack)
+            {
                 e.Handled = true;
                 shell.RootFrame.GoBack();
             }
@@ -88,7 +93,8 @@ namespace MspNotes.UI
         void OnBackRequested(object sender, BackRequestedEventArgs e)
         {
             var shell = (Shell)Window.Current.Content;
-            if (shell.RootFrame.CanGoBack) {
+            if (shell.RootFrame.CanGoBack)
+            {
                 e.Handled = true;
                 shell.RootFrame.GoBack();
             }
@@ -128,7 +134,8 @@ namespace MspNotes.UI
             var shell = (Shell)Window.Current.Content;
 
             var visibility = AppViewBackButtonVisibility.Collapsed;
-            if (shell.RootFrame.CanGoBack) {
+            if (shell.RootFrame.CanGoBack)
+            {
                 visibility = AppViewBackButtonVisibility.Visible;
             }
 

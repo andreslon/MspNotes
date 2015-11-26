@@ -1,0 +1,26 @@
+﻿<Page
+    x:Class="MspNotes.UI.Pages.NotesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MspNotes.UI.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ListView ItemsSource="{Binding Notes}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock  Text="{Binding Id}"  />
+                        <TextBlock  Text="{Binding Title}" />
+                        <TextBlock  Text="{Binding Description}" />
+                        <Button  Content="Update" Command="{Binding UpdateNoteCommand}"/>
+                        <Button  Content="Delete" Command="{Binding DeleteNoteCommand}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </Grid>
+</Page>
