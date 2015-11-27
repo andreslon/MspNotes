@@ -23,7 +23,6 @@ namespace MspNotes.UI.ViewModels
             set { if (Set(ref notes, value)) { OnPropertyChanged("Notes"); } }
         }
 
-
         public NoteViewModel SelectedNote { get; set; }
         public OneDriveService onedrive { get; set; }
 

@@ -21,19 +21,11 @@ namespace MspNotes.UI.Services
         }
         async private void Initialize()
         {
-            //SID de paquete:
-            //ms - app://s-1-15-2-781564687-2288085987-2730961153-1334342004-1546344497-2975729527-1374251682
-            //Id.de cliente:
-            //000000004C171FA2
-            //Clave secreta de cliente:
-            //SV4vHrYrnIm2JilfntRk3mUTPiPkun9d
-
             try
             {
                 if (oneDriveClient == null)
                 {
                     oneDriveClient = OneDriveClientExtensions.GetClientUsingOnlineIdAuthenticator(scopes);
-                    //oneDriveClient = OneDriveClientExtensions.GetClientUsingWebAuthenticationBroker("000000004C171FA2", scopes);
                     await oneDriveClient.AuthenticateAsync();
                 }
             }
@@ -102,25 +94,16 @@ namespace MspNotes.UI.Services
         {
             byte[] byteArray = Encoding.UTF8.GetBytes(new Serializer().SerializeObject(note));
             MemoryStream stream = new MemoryStream(byteArray);
-
-            var item = await oneDriveClient
-                        .Drive
-                        .Special
-                        .AppRoot
-                        .ItemWithPath(string.Format("{0}.txt", note.Id))
-                        .Request()
-                        .GetAsync();
-
-            item.Content = stream;
-
-
-            var itemSave = await oneDriveClient
-                    .Drive
-                    .Special
-                    .AppRoot
-                    .Children[string.Format("{0}.txt", note.Id)]
-                    .Request()
-                    .UpdateAsync(item);
+            using (stream)
+            {
+                var uploadedItem = await oneDriveClient
+                                             .Drive
+                                             .Root
+                                             .ItemWithPath(string.Format("{0}.txt", note.Id))
+                                             .Content
+                                             .Request()
+                                             .PutAsync<Item>(stream);
+            }
         }
 
         async public Task SaveNote(Note note)

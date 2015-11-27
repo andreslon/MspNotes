@@ -69,7 +69,7 @@ namespace MspNotes.UI.ViewModels
         async private void DeleteNote()
         {
             await App.MainViewModel.onedrive.DeleteNote(this.Id);
-            App.MainViewModel.LoadNotes();
+            NavigateToNotes();
         }
 
         private void UpdateNote()
@@ -81,7 +81,6 @@ namespace MspNotes.UI.ViewModels
 
         public void NavigateToNotes()
         {
-            App.MainViewModel.LoadNotes();
             var frame = (Shell)Windows.UI.Xaml.Window.Current.Content;
             frame.ViewModel.SelectedMenuItem = frame.ViewModel.MenuItems.Where(x => x.PageType == typeof(NotesPage)).FirstOrDefault();
         }
